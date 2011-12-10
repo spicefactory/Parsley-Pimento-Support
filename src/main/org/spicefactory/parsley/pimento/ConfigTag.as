@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package org.spicefactory.parsley.pimento {
+import org.spicefactory.lib.reflect.Metadata;
 import org.spicefactory.parsley.config.Configuration;
 import org.spicefactory.parsley.config.RootConfigurationElement;
 import org.spicefactory.parsley.core.registry.ObjectDefinition;
@@ -52,6 +53,7 @@ public class ConfigTag implements RootConfigurationElement {
 	 * @inheritDoc
 	 */
 	public function process (config:Configuration) : void {
+		initialize();
 		var builder:ObjectDefinitionBuilder = config.builders.forClass(PimentoConfig);
 		builder.property("serviceUrl").value(url);
 		if (timeout != 0) builder.property("defaultTimeout").value(timeout);
@@ -61,6 +63,17 @@ public class ConfigTag implements RootConfigurationElement {
 		builder.lifecycle().instantiator(new EntityManagerInstantiator(def.id));
 		builder.asSingleton().id(def.id + "_entityManager").register();
 	}
+	
+	
+	private static var initialized: Boolean;
+	
+	private static function initialize (): void {
+		if (initialized) return;
+		initialized = true;
+		Metadata.registerMetadataClass(LegacyPostConstructDecorator);
+	}
+	
+	
 }
 }
 
