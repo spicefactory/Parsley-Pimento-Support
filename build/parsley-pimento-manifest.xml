@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<componentPackage>
+	<component id="PimentoXmlSupport" class="org.spicefactory.parsley.pimento.PimentoXmlSupport"/>
+    <component id="Config" class="org.spicefactory.parsley.pimento.MxmlConfigTag"/>
+    <component id="Service" class="org.spicefactory.parsley.pimento.MxmlServiceTag"/>
+</componentPackage>
