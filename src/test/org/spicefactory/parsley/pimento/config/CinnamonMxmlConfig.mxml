@@ -1,0 +1,22 @@
+<mx:Object 
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:flextag="org.spicefactory.parsley.flex.tag.*"
+	xmlns:cinnamon="org.spicefactory.parsley.cinnamon.*">
+	
+	<mx:Script>
+		<![CDATA[
+			import org.spicefactory.parsley.pimento.model.EchoServiceImpl;
+		]]>
+	</mx:Script>
+	
+	<cinnamon:MxmlChannelTag 
+	    id="mainChannel"
+	    url="http://localhost:8080/Pimento_Server/cinnamon/"
+	    timeout="3000"
+	/>
+	<cinnamon:MxmlServiceTag
+	    name="echo"
+	    type="{EchoServiceImpl}"
+	/>
+	
+</mx:Object> 
