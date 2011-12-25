@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 package org.spicefactory.parsley.pimento {
+import org.spicefactory.parsley.core.bootstrap.BootstrapConfigProcessor;
 import org.spicefactory.parsley.core.bootstrap.BootstrapConfig;
-import org.spicefactory.parsley.flex.tag.builder.BootstrapConfigProcessor;
 import org.spicefactory.parsley.xml.mapper.XmlConfigurationNamespaceRegistry;
 
 /**
