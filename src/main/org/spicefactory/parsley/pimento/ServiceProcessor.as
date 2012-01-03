@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 package org.spicefactory.parsley.pimento {
+
 import org.spicefactory.cinnamon.service.ServiceProxy;
 import org.spicefactory.parsley.core.errors.ContextError;
 import org.spicefactory.parsley.core.lifecycle.ManagedObject;
-import org.spicefactory.parsley.core.registry.ObjectProcessor;
-import org.spicefactory.parsley.core.registry.ObjectProcessorFactory;
-import org.spicefactory.parsley.processor.util.ObjectProcessorFactories;
+import org.spicefactory.parsley.core.processor.ObjectProcessor;
 import org.spicefactory.pimento.config.PimentoConfig;
 
 /**
@@ -44,7 +43,7 @@ public class ServiceProcessor implements ObjectProcessor {
 	 * @param config the id of the PimentoConfig instance to use for this service
 	 * @param timeout the timeout to apply
 	 */
-	function ServiceProcessor (target:ManagedObject, name:String, config:String, timeout:uint) {
+	function ServiceProcessor (name:String, config:String, timeout:uint) {
 		this.target = target;
 		this.name = name;
 		this.config = config;
@@ -54,7 +53,7 @@ public class ServiceProcessor implements ObjectProcessor {
 	/**
 	 * @inheritDoc
 	 */
-	public function preInit () : void {
+	public function init (target:ManagedObject) : void {
 		var configInstance:PimentoConfig;
 		if (config != null) {
 			var configRef:Object = target.context.getObject(config);
@@ -74,21 +73,8 @@ public class ServiceProcessor implements ObjectProcessor {
 	/**
 	 * @inheritDoc
 	 */
-	public function postDestroy() : void {
+	public function destroy (target:ManagedObject) : void {
 		/* nothing to do */
-	}
-	
-	
-	/**
-	 * Creates a new processor factory.
-	 * 
-	 * @param name the name to register the service with
-	 * @param config the id of the PimentoConfig instance to use for this service
-	 * @param timeout the timeout to apply
-	 * @return a new processor factory
-	 */
-	public static function newFactory (name:String, config:String, timeout:uint) : ObjectProcessorFactory {
-		return ObjectProcessorFactories.newFactory(ServiceProcessor, [name, config, timeout]);
 	}
 	
 	/**

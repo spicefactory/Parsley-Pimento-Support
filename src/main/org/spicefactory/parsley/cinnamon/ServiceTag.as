@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 package org.spicefactory.parsley.cinnamon {
-import org.spicefactory.parsley.config.Configuration;
+
 import org.spicefactory.parsley.config.RootConfigurationElement;
-import org.spicefactory.parsley.dsl.ObjectDefinitionBuilder;
+import org.spicefactory.parsley.core.builder.ObjectDefinitionBuilder;
+import org.spicefactory.parsley.core.registry.ObjectDefinitionRegistry;
 
 [XmlMapping(elementName="service")]
 /**
@@ -60,14 +61,13 @@ public class ServiceTag implements RootConfigurationElement {
 	/**
 	 * @inheritDoc
 	 */
-	public function process (config:Configuration) : void {
+	public function process (registry: ObjectDefinitionRegistry) : void {
 		if (id == null) id = name;
 		
-		var builder:ObjectDefinitionBuilder = config.builders.forClass(type);
+		var builder:ObjectDefinitionBuilder = registry.builders.forClass(type);
 		
 		builder
-			.lifecycle()
-				.processorFactory(ServiceProcessor.newFactory(name, channel, timeout));
+			.process(new ServiceProcessor(name, channel, timeout));
 		
 		builder
 			.asSingleton()

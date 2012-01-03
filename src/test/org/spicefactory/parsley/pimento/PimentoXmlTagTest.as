@@ -1,8 +1,8 @@
 package org.spicefactory.parsley.pimento {
 
 import org.spicefactory.parsley.cinnamon.CinnamonXmlSupport;
+import org.spicefactory.parsley.context.ContextBuilder;
 import org.spicefactory.parsley.core.context.Context;
-import org.spicefactory.parsley.dsl.context.ContextBuilder;
 import org.spicefactory.parsley.xml.XmlConfig;
 
 public class PimentoXmlTagTest extends PimentoTestBase {

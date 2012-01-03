@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 package org.spicefactory.parsley.cinnamon {
+
 import org.spicefactory.cinnamon.service.ServiceChannel;
 import org.spicefactory.cinnamon.service.ServiceProxy;
 import org.spicefactory.parsley.core.errors.ContextError;
 import org.spicefactory.parsley.core.lifecycle.ManagedObject;
-import org.spicefactory.parsley.core.registry.ObjectProcessor;
-import org.spicefactory.parsley.core.registry.ObjectProcessorFactory;
-import org.spicefactory.parsley.processor.util.ObjectProcessorFactories;
+import org.spicefactory.parsley.core.processor.ObjectProcessor;
 
 /**
  * Processes a service and creates the proxy for the corresponding channel.
@@ -30,7 +29,6 @@ import org.spicefactory.parsley.processor.util.ObjectProcessorFactories;
 public class ServiceProcessor implements ObjectProcessor {
 	
     
-    private var target:ManagedObject;
 	private var name:String;
 	private var channel:String;
 	private var timeout:uint;
@@ -44,8 +42,7 @@ public class ServiceProcessor implements ObjectProcessor {
 	 * @param channel the id of the channel to use for this service
 	 * @param timeout the timeout to apply
 	 */
-	function ServiceProcessor (target:ManagedObject, name:String, channel:String, timeout:uint) {
-		this.target = target;
+	function ServiceProcessor (name:String, channel:String, timeout:uint) {
 		this.name = name;
 		this.channel = channel;
 		this.timeout = timeout;
@@ -54,7 +51,7 @@ public class ServiceProcessor implements ObjectProcessor {
 	/**
 	 * @inheritDoc
 	 */
-	public function preInit () : void {
+	public function init (target:ManagedObject) : void {
 		var channelInstance:ServiceChannel;
 		if (channel != null) {
 			var channelRef:Object = target.context.getObject(channel);
@@ -73,21 +70,8 @@ public class ServiceProcessor implements ObjectProcessor {
 	/**
 	 * @inheritDoc
 	 */
-	public function postDestroy() : void {
+	public function destroy (target:ManagedObject) : void {
 		/* nothing to do */
-	}
-	
-	
-	/**
-	 * Creates a new processor factory.
-	 * 
-	 * @param name the name to register the service with
-	 * @param channel the id of the channel to use for this service
-	 * @param timeout the timeout to apply
-	 * @return a new processor factory
-	 */
-	public static function newFactory (name:String, channel:String, timeout:uint) : ObjectProcessorFactory {
-		return ObjectProcessorFactories.newFactory(ServiceProcessor, [name, channel, timeout]);
 	}
 	
 	/**

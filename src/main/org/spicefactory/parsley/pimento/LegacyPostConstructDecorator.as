@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 package org.spicefactory.parsley.pimento {
-import org.spicefactory.parsley.config.ObjectDefinitionDecorator;
-import org.spicefactory.parsley.dsl.ObjectDefinitionBuilder;
+
+import org.spicefactory.parsley.core.processor.InitPhase;
+import org.spicefactory.parsley.core.builder.processor.MethodInvocationProcessor;
+import org.spicefactory.parsley.core.builder.ObjectDefinitionBuilder;
+import org.spicefactory.parsley.core.builder.ObjectDefinitionDecorator;
 
 [Metadata(name="PostConstruct", types="method")]
 /**
@@ -38,7 +41,10 @@ public class LegacyPostConstructDecorator implements ObjectDefinitionDecorator {
 	 * @inheritDoc
 	 */
 	public function decorate (builder:ObjectDefinitionBuilder) : void {
-		builder.method(method).initMethod();
+		builder
+			.method(method)
+			.process(new MethodInvocationProcessor([]))
+			.initIn(InitPhase.init());
 	}
 	
 	

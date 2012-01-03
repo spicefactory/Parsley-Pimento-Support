@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 package org.spicefactory.parsley.pimento {
+
+import org.spicefactory.parsley.core.registry.ObjectDefinitionRegistry;
 import org.spicefactory.lib.reflect.Metadata;
-import org.spicefactory.parsley.config.Configuration;
 import org.spicefactory.parsley.config.RootConfigurationElement;
+import org.spicefactory.parsley.core.builder.ObjectDefinitionBuilder;
 import org.spicefactory.parsley.core.registry.ObjectDefinition;
-import org.spicefactory.parsley.dsl.ObjectDefinitionBuilder;
 import org.spicefactory.pimento.config.PimentoConfig;
 import org.spicefactory.pimento.service.EntityManager;
 
@@ -52,15 +53,15 @@ public class ConfigTag implements RootConfigurationElement {
 	/**
 	 * @inheritDoc
 	 */
-	public function process (config:Configuration) : void {
+	public function process (registry: ObjectDefinitionRegistry) : void {
 		initialize();
-		var builder:ObjectDefinitionBuilder = config.builders.forClass(PimentoConfig);
+		var builder:ObjectDefinitionBuilder = registry.builders.forClass(PimentoConfig);
 		builder.property("serviceUrl").value(url);
 		if (timeout != 0) builder.property("defaultTimeout").value(timeout);
 		var def:ObjectDefinition = builder.asSingleton().id(id).register();
 		
-		builder = config.builders.forClass(EntityManager);
-		builder.lifecycle().instantiator(new EntityManagerInstantiator(def.id));
+		builder = registry.builders.forClass(EntityManager);
+		builder.instantiate(new EntityManagerInstantiator(def.id));
 		builder.asSingleton().id(def.id + "_entityManager").register();
 	}
 	
