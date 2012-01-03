@@ -15,11 +15,11 @@
 			<path-element>${project}/libs/spicelib-util-3.0.0.swc</path-element>
 			<path-element>${project}/libs/spicelib-reflect-3.0.0.swc</path-element>
 			<path-element>${project}/libs/spicelib-commands-3.1.0.swc</path-element>
-			<path-element>${project}/libs/spicelib-xml-mapper-3.0.1.swc</path-element>
+			<path-element>${project}/libs/spicelib-xml-mapper-3.0.2.swc</path-element>
 
-			<path-element>${project}/libs/parsley-core-3.0.M1.swc</path-element>
-			<path-element>${project}/libs/parsley-flex-3.0.M1.swc</path-element>
-			<path-element>${project}/libs/parsley-xml-3.0.M1.swc</path-element>
+			<path-element>${project}/libs/parsley-core-3.0.M2.swc</path-element>
+			<path-element>${project}/libs/parsley-flex-3.0.M2.swc</path-element>
+			<path-element>${project}/libs/parsley-xml-3.0.M2.swc</path-element>
 
 			<path-element>${project}/libs/pimento-1.1.0.swc</path-element>
 			<path-element>${project}/libs/cinnamon-1.1.0.swc</path-element>
