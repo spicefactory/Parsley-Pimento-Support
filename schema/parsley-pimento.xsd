@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified"
+    xmlns="http://www.spicefactory.org/parsley/pimento"
+    xmlns:tns="http://www.spicefactory.org/parsley/pimento"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.spicefactory.org/parsley/pimento">
+
+    <xs:element name="config">
+        <xs:complexType>
+            <xs:attribute name="id" type="xs:token" use="optional"/>
+            <xs:attribute name="url" type="xs:token" use="required"/>
+            <xs:attribute name="timeout" type="uintOrExpression" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="service">
+        <xs:complexType>
+            <xs:attribute name="id" type="xs:token" use="optional"/>
+            <xs:attribute name="name" type="xs:token" use="required"/>
+            <xs:attribute name="type" type="xs:token" use="required"/>
+            <xs:attribute name="config" type="xs:token" use="optional"/>
+            <xs:attribute name="timeout" type="uintOrExpression" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:simpleType name="uintOrExpression">
+        <xs:union memberTypes="xs:nonNegativeInteger expression"/>
+    </xs:simpleType>
+    
+    <xs:simpleType name="expression">
+        <xs:restriction base="xs:token">
+            <xs:pattern value="\$\{(.*)+\}"></xs:pattern>
+        </xs:restriction>
+    </xs:simpleType> 
+    
+</xs:schema>
